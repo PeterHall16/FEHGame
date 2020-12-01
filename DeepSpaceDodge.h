@@ -16,6 +16,8 @@ private:
 public:
     void showMenuScreen();
     void showStatistics(int lastRunScore);
+    void showInstructions();
+    void showCredits();
     int doGame();
 };
 
