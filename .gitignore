@@ -1,3 +1,4 @@
 simulator_firmware/
 *.o
 game.exe
+game
