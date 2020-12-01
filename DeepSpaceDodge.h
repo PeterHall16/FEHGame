@@ -1,6 +1,14 @@
 #ifndef _DEEP_SPACE_DODGE_H
 #define _DEEP_SPACE_DODGE_H
 
+#define SCREEN_WIDTH 320
+#define SCREEN_HEIGHT 240
+
+#define MAX_ASTEROIDS 30
+#define ASTEROID_PROBABILITY 10
+#define ASTEROID_MINIMUM_SIZE 5
+#define ASTEROID_MAXIMUM_SIZE 15
+
 class Game {
 private:
     int numHighScores;
@@ -19,7 +27,7 @@ private:
     bool isDead;
 public:
     Player();
-    void jump();
+    void boost();
     int getHorizontalDistance();
     void updatePosition();
     bool draw();
