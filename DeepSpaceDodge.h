@@ -4,7 +4,7 @@
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
 
-#define MAX_ASTEROIDS 30
+#define TICK_DURATION_MS 20
 #define ASTEROID_PROBABILITY 10
 #define ASTEROID_MINIMUM_SIZE 5
 #define ASTEROID_MAXIMUM_SIZE 15
@@ -23,14 +23,15 @@ public:
 
 class Player {
 private:
-    int horizontalPosition;
-    int verticalPosition;
+    double horizontalPosition;
+    double verticalPosition;
     int verticalVelocity;
     bool isDead;
 public:
     Player();
     void boost();
     int getHorizontalDistance();
+    int getHeight();
     void updatePosition();
     bool draw();
     void setDead();
