@@ -57,12 +57,18 @@ void removeAsteroid(AsteroidNode* node) {
     free(node);
 }
 
-/*int Game::doGame() {
+int Game::doGame() {
     LCD.Clear();
-    LCD.WriteLine("Play game here");
+    LCD.WriteLine("Play game here. Touch anywhere to quit");
+    int x,y;
+    while (LCD.Touch(&x, &y));
+    Sleep(250);
+    while (!LCD.Touch(&x, &y));
+    while (LCD.Touch(&x, &y));
     return 0;
-}*/
+}
 
+/*
 int Game::doGame() {
     // Create player object
     Player *rocket = new Player();
@@ -135,4 +141,4 @@ int Game::doGame() {
     LCD.Clear();
 
     return rocket->getHorizontalDistance();
-}
+}*/
