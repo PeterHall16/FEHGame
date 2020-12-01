@@ -48,7 +48,7 @@ void Game::showMenuScreen() {
         LCD.ClearBuffer();
 
         // Check if x position corresponds to a possible button click first
-        if (x > buttonX && x < width) {
+        if (x > buttonX && x < (width+buttonX)) {
             // Check the y position to determine which button was clicked
             if (y > buttonY && y < buttonY + height) {
                 doGame();
