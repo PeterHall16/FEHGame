@@ -7,9 +7,9 @@
  * @returns status code of program exit
  */
 int main() {
-    Game game();
-
-    game.showMenuScreen();
+    Game *game = new Game();
+    game->showMenuScreen();
+    delete game;
 
     return 0;
 }
