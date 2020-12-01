@@ -68,8 +68,9 @@ int Game::doGame() {
     // while (LCD.Touch(&x, &y));
     
     // New - added by Peter
-    while(!LCD.Touch(&x, &y));
     LCD.ClearBuffer();
+    while(!LCD.Touch(&x, &y));
+    while(LCD.Touch(&x, &y));
     showMenuScreen();
     return 0;
 }

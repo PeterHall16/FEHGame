@@ -44,11 +44,12 @@ void Game::showMenuScreen() {
         int x, y;
 
         // Wait for user to click screen
-        while(!LCD.Touch(&x, &y));
         LCD.ClearBuffer();
+        while(!LCD.Touch(&x, &y));
+        while(LCD.Touch(&x, &y));
 
         // Check if x position corresponds to a possible button click first
-        if (x > buttonX && x < (width+buttonX)) {
+        if (x > buttonX && x < (buttonX + width)) {
             // Check the y position to determine which button was clicked
             if (y > buttonY && y < buttonY + height) {
                 doGame();
@@ -81,8 +82,9 @@ void Game::showStatistics(int lastRunScore) {
     LCD.WriteLine("Click anywhere to return to the menu");
 
     // Wait for user to click screen
-    while(!LCD.Touch(&x, &y));
     LCD.ClearBuffer();
+    while(!LCD.Touch(&x, &y));
+    while(LCD.Touch(&x, &y));
     showMenuScreen();
 }
 
@@ -102,8 +104,9 @@ void Game::showInstructions() {
     LCD.WriteLine("Click anywhere to return to the menu");
 
     // Wait for user to click screen
-    while(!LCD.Touch(&x, &y));
     LCD.ClearBuffer();
+    while(!LCD.Touch(&x, &y));
+    while(LCD.Touch(&x, &y));
     showMenuScreen();
 }
 
@@ -120,7 +123,8 @@ void Game::showCredits() {
     LCD.WriteLine("Peter Hall");
 
     // Wait for user to click screen
-    while(!LCD.Touch(&x, &y));
     LCD.ClearBuffer();
+    while(!LCD.Touch(&x, &y));
+    while(LCD.Touch(&x, &y));
     showMenuScreen();
 }
