@@ -1,0 +1,65 @@
+Each person on the team needs to write at least 20% of the code for the game
+
+Title: Deep Space Dodge
+
+Classes:
+ - Game
+ - Player
+ - Obstacle
+
+Game Functions:
+ - void showMenuScreen()  ; Peter Hall
+   - Responsible for loading and saving high scores
+   - Draws the menu screen
+   - Polls for touches and performs the right action
+   - Updates high scores returned from doGame
+ - void showStatistics(int lastRunScore)  ; Angus Harrop
+   - Displays high scores from the user and the last game score
+ - int doGame()           ; Robert Pafford
+    Phases:
+     - Game Loop
+     - Player Death Animation
+     - Present Score - Optional with time
+
+Game Variables:
+ - int numHighScores;
+    - Number of high scores in highScore
+ - int highScore[5]
+    - The high scores for the game
+
+Player Functions:
+ - Create()                         ; Peter Hall
+   - Creates a new instance of the player
+ - void jump()                      ; Peter Hall
+   - Increases the verticalVelocity variable for each jump
+ - int getHorizontalDistance()      ; Angus Harrop
+   - Returns the horizontalPosition variable from the player
+ - void updatePosition()            ; Robert Pafford
+   - Updates horizontal and vertical position
+ - boolean draw()                   ; Peter Hall
+   - Draws the player on the screen
+   - If the player is no longer on the screen, return false, if it still is, return true
+ - void setDead()                   ; Angus Harrop
+   - Sets the dead boolean to true
+
+Player Variable:
+ - int horizontalPosition
+ - int verticalPosition
+ - int verticalVelocity
+ - boolean isDead
+
+Obstacle Functions:
+ - Create(int playerHorizontalPosition);        ;  Robert Pafford
+    - Responsible for creating the obstacle class, calculating the position of the obstacle relative to the player start
+    - Randomly generates a vertical position and radius for the obsticle
+ - boolean draw(int playerHorizontalPosition);   ;  Angus Harrop
+    - Draws the obstacle of the specified position and radius
+    - Draws at the location relative to the player horizontal position
+    - If the obstacle is off of the screen return false, if it is on the screen, return true
+ - boolean hasCollided(int playerHorizontalPosition int playerVerticalPosition);   ;  Robert Pafford
+    - Checks if the player has collided with this obstacle. If it did, return true, if not, return false
+
+Obstacle Variables:
+ - int horizontalPosition
+ - int verticalPosition
+ - int radius
