@@ -59,12 +59,18 @@ void removeAsteroid(AsteroidNode* node) {
 
 int Game::doGame() {
     LCD.Clear();
-    LCD.WriteLine("Play game here. Touch anywhere to quit");
+    LCD.WriteLine("Play game here.");
+    LCD.WriteLine("Touch anywhere to return."); // Split line - Peter
     int x,y;
-    while (LCD.Touch(&x, &y));
-    Sleep(250);
-    while (!LCD.Touch(&x, &y));
-    while (LCD.Touch(&x, &y));
+    // while (LCD.Touch(&x, &y));
+    // Sleep(250);
+    // while (!LCD.Touch(&x, &y));
+    // while (LCD.Touch(&x, &y));
+    
+    // New - added by Peter
+    while(!LCD.Touch(&x, &y));
+    LCD.ClearBuffer();
+    showMenuScreen();
     return 0;
 }
 

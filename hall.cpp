@@ -21,7 +21,6 @@ void Game::showMenuScreen() {
     int offset = 45;
     int charWidth = 8;
     int charHeight = 24;
-
     bool checkClick = true;
 
     // Draw shapes
@@ -46,22 +45,19 @@ void Game::showMenuScreen() {
 
         // Wait for user to click screen
         while(!LCD.Touch(&x, &y));
+        LCD.ClearBuffer();
 
         // Check if x position corresponds to a possible button click first
         if (x > buttonX && x < width) {
             // Check the y position to determine which button was clicked
             if (y > buttonY && y < buttonY + height) {
                 doGame();
-                checkClick = false;
             } else if (y > buttonY + offset && y < buttonY + offset + height) {
                 showStatistics(0);
-                checkClick = false;
             } else if (y > buttonY + 2 * offset && y < buttonY + 2 * offset + offset) {
                 showInstructions();
-                checkClick = false;
             } else if (y > buttonY + 3 * offset && y < buttonY + 3 * offset + offset) {
                 showCredits();
-                checkClick = false;
             }
         }
     }
@@ -69,6 +65,25 @@ void Game::showMenuScreen() {
 
 void Game::showStatistics(int lastRunScore) {
     LCD.Clear();
+
+    // Declare variables
+    int x, y;
+
+    // Write Text
+    LCD.WriteLine("STATISTICS");
+    LCD.WriteLine("High Score Leaderboard");
+    LCD.WriteLine("Furthest Distances:");
+    LCD.WriteLine("");
+    LCD.WriteLine("1 Peter - 125 km");
+    LCD.WriteLine("2 Angus - 101 km");
+    LCD.WriteLine("3 Robert - 94 km");
+    LCD.WriteLine("");
+    LCD.WriteLine("Click anywhere to return to the menu");
+
+    // Wait for user to click screen
+    while(!LCD.Touch(&x, &y));
+    LCD.ClearBuffer();
+    showMenuScreen();
 }
 
 void Game::showInstructions() {
@@ -76,7 +91,6 @@ void Game::showInstructions() {
 
     // Declare variables
     int x, y;
-    bool checkClick = true;
 
     // Write Text
     LCD.WriteLine("INSTRUCTIONS");
@@ -88,13 +102,9 @@ void Game::showInstructions() {
     LCD.WriteLine("Click anywhere to return to the menu");
 
     // Wait for user to click screen
-    
-    while (checkClick) {
-        while(!LCD.Touch(&x, &y)) {
-            showMenuScreen();
-            checkClick = false;  
-        }
-    }
+    while(!LCD.Touch(&x, &y));
+    LCD.ClearBuffer();
+    showMenuScreen();
 }
 
 void Game::showCredits() {
@@ -110,7 +120,7 @@ void Game::showCredits() {
     LCD.WriteLine("Peter Hall");
 
     // Wait for user to click screen
-    while(!LCD.Touch(&x, &y)) {
-        showMenuScreen();
-    }
+    while(!LCD.Touch(&x, &y));
+    LCD.ClearBuffer();
+    showMenuScreen();
 }
