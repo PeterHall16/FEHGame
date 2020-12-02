@@ -60,7 +60,7 @@ void removeAsteroid(AsteroidNode* node) {
     free(node);
 }
 
-int Game::doGame() {
+void Game::doGame() {
 
     printf("Running Game\n");
 

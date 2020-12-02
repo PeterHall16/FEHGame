@@ -32,7 +32,7 @@ public:
     void showInstructions();
     void showCredits();
     void calculateHighScores();
-    int doGame();
+    void doGame();
 };
 
 class Player {
