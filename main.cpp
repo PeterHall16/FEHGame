@@ -158,6 +158,9 @@ void Game::showCredits() {
     LCD.WriteLine("Robert Pafford");
     LCD.WriteLine("Angus Harrop");
     LCD.WriteLine("Peter Hall");
+    LCD.WriteLine("");
+    LCD.WriteLine("Built using the Proteus Board");
+    LCD.WriteLine("feh.osu.edu/simulator_docs/");
 
     // Wait for user to click screen to return to menu
     LCD.ClearBuffer();
