@@ -65,32 +65,6 @@ void Game::showMenuScreen() {
     }
 }
 
-/**
- * Shows statistics
- */
-void Game::showStatistics(int lastRunScore) {
-    LCD.Clear();
-
-    // Declare variables
-    int x, y;
-
-    // Write Text
-    LCD.WriteLine("STATISTICS");
-    LCD.WriteLine("High Score Leaderboard");
-    LCD.WriteLine("Furthest Distances:");
-    LCD.WriteLine("");
-    LCD.WriteLine("1 Peter - 125 km");
-    LCD.WriteLine("2 Angus - 101 km");
-    LCD.WriteLine("3 Robert - 94 km");
-    LCD.WriteLine("");
-    LCD.WriteLine("Click anywhere to return to the menu");
-
-    // Wait for user to click screen
-    LCD.ClearBuffer();
-    while(!LCD.Touch(&x, &y));
-    while(LCD.Touch(&x, &y));
-    showMenuScreen();
-}
 
 /**
  * Shows instructions.
