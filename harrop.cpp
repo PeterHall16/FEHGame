@@ -11,10 +11,8 @@ void Game::showStatistics(int lastRunScore){
     int x, y;
 
     //Write text
-    LCD.WriteLine("STATISTICS");
     LCD.WriteLine("High Score Leaderboard");
     LCD.WriteLine("Furthest Distances:");
-    LCD.WriteLine("");
 
     //display top 5 scores from all runs
     for(int i=0; i<5; i++){
@@ -24,7 +22,7 @@ void Game::showStatistics(int lastRunScore){
     }
     //display latest run score
     LCD.Write("Last Run Score: ");
-    LCD.Write(lastRunScore);
+    LCD.WriteLine(lastRunScore);
 
     //Wait for user touch to return to main screen
     LCD.WriteLine("Click anywhere to return to the menu");
