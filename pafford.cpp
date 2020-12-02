@@ -175,6 +175,9 @@ bool Obstacle::hasCollided(int playerHorizontalPosition, int playerVerticalPosit
     // Check if any corner is within the radius of the asteroid
     for (int corner = 0; corner < 4; corner++) {
         if ((pow(round(playerCorners[corner][0]) - horizontalPosition, 2) + pow(round(playerCorners[corner][1]) - verticalPosition, 2)) < pow(radius, 2)) {
+            LCD.SetDrawColor(LCD.Green);
+            LCD.DrawCircle(PLAYER_HORIZONTAL_POSITION, playerCorners[corner][1], 3);
+            Sleep(5.0);
             return true;
         }
     }
