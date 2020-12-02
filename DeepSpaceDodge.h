@@ -4,6 +4,9 @@
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
 
+#define PLAYER_HORIZONTAL_VELOCITY 2.0      // Velocity in pixels/tick
+#define PLAYER_VERTICAL_ACCELERATION 2.0    // Acceleration in pixels/tick^2
+
 #define TICK_DURATION_MS 20
 #define ASTEROID_PROBABILITY 10
 #define ASTEROID_MINIMUM_SIZE 5
@@ -25,7 +28,7 @@ class Player {
 private:
     double horizontalPosition;
     double verticalPosition;
-    int verticalVelocity;
+    double verticalVelocity;
     bool isDead;
 public:
     Player();
