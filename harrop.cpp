@@ -4,6 +4,9 @@
 
 void Game::showStatistics(int lastRunScore){
 
+    //Clear Screen
+    LCD.Clear();
+
     //Declare variables
     int x, y;
 
