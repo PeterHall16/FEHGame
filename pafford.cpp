@@ -142,7 +142,7 @@ void Player::updatePosition() {
     }
 
     // Decrease vertical velocity by given pixels/tick^2
-    verticalVelocity -= PLAYER_VERTICAL_ACCELERATION;
+    verticalVelocity -= PLAYER_VERTICAL_GRAVITATIONAL_ACCELERATION;
     
     // Change position by verticalVelocity's pixels/tick
     verticalPosition += verticalVelocity;
@@ -161,12 +161,12 @@ Obstacle::Obstacle(int playerHorizontalPosition) {
 
 bool Obstacle::hasCollided(int playerHorizontalPosition, int playerVerticalPosition) {
     // Calclate the corners of the player
-    int playerCorners[4][2] = {{playerHorizontalPosition + (PLAYER_WIDTH/2.0), playerVerticalPosition + (PLAYER_HEIGHT/2.0)}, {playerHorizontalPosition - (PLAYER_WIDTH/2.0), playerVerticalPosition + (PLAYER_HEIGHT/2.0)},
+    double playerCorners[4][2] = {{playerHorizontalPosition + (PLAYER_WIDTH/2.0), playerVerticalPosition + (PLAYER_HEIGHT/2.0)}, {playerHorizontalPosition - (PLAYER_WIDTH/2.0), playerVerticalPosition + (PLAYER_HEIGHT/2.0)},
                                {playerHorizontalPosition + (PLAYER_WIDTH/2.0), playerVerticalPosition - (PLAYER_HEIGHT/2.0)}, {playerHorizontalPosition - (PLAYER_WIDTH/2.0), playerVerticalPosition - (PLAYER_HEIGHT/2.0)}};
     
     // Check if any corner is within the radius of the asteroid
     for (int corner = 0; corner < 4; corner++) {
-        if ((pow(playerCorners[corner][0] - horizontalPosition, 2) + pow(playerCorners[corner][1] - verticalPosition, 2)) < pow(radius, 2)) {
+        if ((pow(round(playerCorners[corner][0]) - horizontalPosition, 2) + pow(round(playerCorners[corner][1]) - verticalPosition, 2)) < pow(radius, 2)) {
             return true;
         }
     }
