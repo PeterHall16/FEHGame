@@ -156,7 +156,6 @@ Player::Player(double a, double b, double c, int d, int e, bool f) {
     isDead = f;
 }
 
-
 /**
  * Draws player
  */
@@ -183,5 +182,5 @@ bool Player::draw() {
  * Increases the verticalVelocity variable for each jump
  */
 void Player::boost() {
-    verticalVelocity + PLAYER_VERTICAL_ACCELERATION;
+    verticalVelocity + PLAYER_VERTICAL_JUMP_ACCELERATION;
 }

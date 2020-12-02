@@ -4,7 +4,7 @@
 void Game::showStatistics(int lastRunScore){
     LCD.WriteLine("High Scores");
     for(int i=0; i<5; i++){
-        LCD.WriteLine(highscore[i]);
+        LCD.WriteLine(highScore[i]);
     }
     LCD.Write("Last Run Score: ");
     LCD.Write(lastRunScore);
