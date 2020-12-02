@@ -55,7 +55,7 @@ void Game::showMenuScreen() {
             if (y > buttonY && y < buttonY + height) {
                 doGame();
             } else if (y > buttonY + offset && y < buttonY + offset + height) {
-                showStatistics(0);
+                showStatistics();
             } else if (y > buttonY + 2 * offset && y < buttonY + 2 * offset + offset) {
                 showInstructions();
             } else if (y > buttonY + 3 * offset && y < buttonY + 3 * offset + offset) {

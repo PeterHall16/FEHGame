@@ -2,7 +2,7 @@
 #include "FEHLCD.h"
 #include "cmath"
 
-void Game::showStatistics(int lastRunScore){
+void Game::showStatistics(){
 
     //Clear Screen
     LCD.Clear();
@@ -66,4 +66,8 @@ bool Obstacle::draw(int playerHorizontalPosition){
         LCD.FillCircle(x_position,verticalPosition,radius);
         return true;
     }
+}
+
+void Game::calculateHighScores() {
+
 }
