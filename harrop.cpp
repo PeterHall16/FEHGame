@@ -11,12 +11,12 @@ void Game::showStatistics(int lastRunScore){
 }
 
 int Player::getHorizontalDistance(){
-    roundedPosition=round(horizontalPosition);
+    int roundedPosition=round(horizontalPosition);
     return roundedPosition;
 }
 
 int Player::getHeight(){
-    roundedHeight=round(verticalPosition);
+    int roundedHeight=round(verticalPosition);
     return roundedHeight;
 }
 
