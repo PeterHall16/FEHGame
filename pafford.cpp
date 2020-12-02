@@ -3,6 +3,7 @@
 #include "FEHRandom.h"
 #include "FEHUtility.h"
 #include "DeepSpaceDodge.h"
+#include <cmath>
 
 struct AsteroidNode {
     Obstacle* thisAsteroid;
@@ -57,25 +58,6 @@ void removeAsteroid(AsteroidNode* node) {
     free(node);
 }
 
-int Game::doGame() {
-    LCD.Clear();
-    LCD.WriteLine("Play game here.");
-    LCD.WriteLine("Touch anywhere to return."); // Split line - Peter
-    int x,y;
-    // while (LCD.Touch(&x, &y));
-    // Sleep(250);
-    // while (!LCD.Touch(&x, &y));
-    // while (LCD.Touch(&x, &y));
-    
-    // New - added by Peter
-    LCD.ClearBuffer();
-    while(!LCD.Touch(&x, &y));
-    while(LCD.Touch(&x, &y));
-    showMenuScreen();
-    return 0;
-}
-
-/*
 int Game::doGame() {
     // Create player object
     Player *rocket = new Player();
@@ -147,5 +129,47 @@ int Game::doGame() {
 
     LCD.Clear();
 
+    delete rocket;
+
     return rocket->getHorizontalDistance();
-}*/
+}
+
+void Player::updatePosition() {
+    // If the player is not dead, move the player forward
+    if (!isDead) {
+        // Change position by the defined pixels/tick
+        horizontalPosition += PLAYER_HORIZONTAL_VELOCITY;
+    }
+
+    // Decrease vertical velocity by given pixels/tick^2
+    verticalVelocity -= PLAYER_VERTICAL_ACCELERATION;
+    
+    // Change position by verticalVelocity's pixels/tick
+    verticalPosition += verticalVelocity;
+}
+
+Obstacle::Obstacle(int playerHorizontalPosition) {
+    // Generate Radius
+    radius = (RandInt() % (ASTEROID_MAXIMUM_SIZE - ASTEROID_MINIMUM_SIZE)) + ASTEROID_MINIMUM_SIZE;
+
+    // Calculate horizontal position
+    horizontalPosition = playerHorizontalPosition + PLAYER_HORIZONTAL_POSITION - radius;
+
+    // Generate random vertical position
+    verticalPosition = (RandInt() % (SCREEN_HEIGHT - radius * 2)) + radius;
+}
+
+bool Obstacle::hasCollided(int playerHorizontalPosition, int playerVerticalPosition) {
+    // Calclate the corners of the player
+    int playerCorners[4][2] = {{playerHorizontalPosition + (PLAYER_WIDTH/2.0), playerVerticalPosition + (PLAYER_HEIGHT/2.0)}, {playerHorizontalPosition - (PLAYER_WIDTH/2.0), playerVerticalPosition + (PLAYER_HEIGHT/2.0)},
+                               {playerHorizontalPosition + (PLAYER_WIDTH/2.0), playerVerticalPosition - (PLAYER_HEIGHT/2.0)}, {playerHorizontalPosition - (PLAYER_WIDTH/2.0), playerVerticalPosition - (PLAYER_HEIGHT/2.0)}};
+    
+    // Check if any corner is within the radius of the asteroid
+    for (int corner = 0; corner < 4; corner++) {
+        if ((pow(playerCorners[corner][0] - horizontalPosition, 2) + pow(playerCorners[corner][1] - verticalPosition, 2)) < pow(radius, 2)) {
+            return true;
+        }
+    }
+
+    return false;
+}
