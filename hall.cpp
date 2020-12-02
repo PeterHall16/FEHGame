@@ -138,7 +138,7 @@ bool Player::draw() {
       
     // Adjust position to center of player
     int newVerticalPosition = round(verticalPosition + height / 2);
-    int newHorizontalPosition = round(PLAYER_HORIZONTAL_POSITION + width / 2);
+    int newHorizontalPosition = round(PLAYER_HORIZONTAL_POSITION - width / 2);
 
     // Draw player (rectangle for now)
     LCD.FillRectangle(newHorizontalPosition, newVerticalPosition, width, height);
