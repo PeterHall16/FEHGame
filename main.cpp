@@ -1,3 +1,9 @@
+/*****************************************************************************/
+/*    Name:  Peter Hall, Angus Harrop, Robert Pafford   Date:  12/1/20       */
+/*    Seat:  12    File:  main.cpp                                           */   
+/*    Instructor:  Clingan 10:20                                             */   
+/*****************************************************************************/
+
 #include "FEHLCD.h"
 #include "DeepSpaceDodge.h"
 
