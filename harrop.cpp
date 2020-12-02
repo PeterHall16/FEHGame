@@ -15,7 +15,7 @@ void Game::showStatistics(){
     LCD.WriteLine("Furthest Distances:");
 
     //display top 5 scores from all runs
-    for(int i=0; i<5; i++){
+    for(int i=0; i<5; i++){            
         LCD.Write(i+1);
         LCD.Write(" - ");
         LCD.WriteLine(highScore[i]);
