@@ -135,13 +135,12 @@ Player::Player(double a, double b, double c, int d, int e, bool f) {
  */
 bool Player::draw() {
     bool onScreen = true;
-
+      
     // Adjust position to center of player
     int newVerticalPosition = round(verticalPosition + height / 2);
     int newHorizontalPosition = round(PLAYER_HORIZONTAL_POSITION + width / 2);
 
     // Draw player (rectangle for now)
-    LCD.SetDrawColor(LCD.Scarlet);
     LCD.FillRectangle(newHorizontalPosition, newVerticalPosition, width, height);
 
     // Check if player is offscreen
