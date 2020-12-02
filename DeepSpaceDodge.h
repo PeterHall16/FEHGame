@@ -4,7 +4,7 @@
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
 
-#define PLAYER_HORIZONTAL_VELOCITY 2.0      // Velocity in pixels/tick
+#define PLAYER_HORIZONTAL_VELOCITY 10.0      // Velocity in pixels/tick
 #define PLAYER_STARTING_VERTICAL_VELOCITY 0.0
 #define PLAYER_VERTICAL_JUMP_ACCELERATION 12
 #define PLAYER_VERTICAL_GRAVITATIONAL_ACCELERATION 2.0    // Acceleration in pixels/tick^2

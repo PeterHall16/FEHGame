@@ -62,8 +62,6 @@ void removeAsteroid(AsteroidNode* node) {
 
 void Game::doGame() {
 
-    printf("Running Game\n");
-
     // Create player object
     Player *rocket = new Player();
 
@@ -76,8 +74,6 @@ void Game::doGame() {
     // Main game loop
     while (true) {
         tickStartMs = TimeNow() * 1000;
-        // Clear LCD for new game loop
-        LCD.Clear();
 
         // Generate a random number to see if a new asteroid should be created
         // Also checks if it is in the death sequence since no new asteroids should appear then
@@ -102,6 +98,9 @@ void Game::doGame() {
 
         // Update rocket motion and draw the rocket
         rocket->updatePosition();
+        
+        // Clear LCD for new game loop
+        LCD.Clear();
 
         // Draw the rocket. If it is off the screen, end the game
         if (!rocket->draw()) {
@@ -123,8 +122,9 @@ void Game::doGame() {
             }
 
             // If the rocket has collided with an asteroid and the player is still alive, kill the player and begin the death sequence
-            if (node->thisAsteroid->hasCollided(rocketHorizontalPosition, rocketVerticalPosition) && !stop) {
+            if (!stop && node->thisAsteroid->hasCollided(rocketHorizontalPosition, rocketVerticalPosition)) {
                 stop = true;
+                rocket->setDead();
             }
 
             node = node->nextNode;
