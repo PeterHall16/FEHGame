@@ -9,7 +9,7 @@
 #define PLAYER_VERTICAL_ACCELERATION 2.0    // Acceleration in pixels/tick^2
 
 #define PLAYER_STARTING_VERTICAL_POSITION 120
-#define PLAYER_STARTING_HORIZONTAL_POSITION 120
+#define PLAYER_HORIZONTAL_POSITION 160
 
 #define PLAYER_WIDTH 30
 #define PLAYER_HEIGHT 20
@@ -40,7 +40,7 @@ private:
     int height;
     bool isDead;
 public:
-    Player(double = PLAYER_STARTING_HORIZONTAL_POSITION, double = PLAYER_STARTING_VERTICAL_POSITION, 
+    Player(double = PLAYER_HORIZONTAL_POSITION, double = PLAYER_STARTING_VERTICAL_POSITION, 
     double = PLAYER_STARTING_VERTICAL_VELOCITY, int = PLAYER_WIDTH, int = PLAYER_HEIGHT, bool = false);
     void boost();
     int getHorizontalDistance();
