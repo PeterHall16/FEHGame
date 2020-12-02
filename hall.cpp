@@ -6,6 +6,7 @@
 
 #include "FEHLCD.h"
 #include "DeepSpaceDodge.h"
+#include <math.h>
 
 /**
  * Displays menu screen.
@@ -64,6 +65,9 @@ void Game::showMenuScreen() {
     }
 }
 
+/**
+ * Shows statistics
+ */
 void Game::showStatistics(int lastRunScore) {
     LCD.Clear();
 
@@ -88,6 +92,9 @@ void Game::showStatistics(int lastRunScore) {
     showMenuScreen();
 }
 
+/**
+ * Shows instructions.
+ */
 void Game::showInstructions() {
     LCD.Clear();
 
@@ -95,13 +102,16 @@ void Game::showInstructions() {
     int x, y;
 
     // Write Text
-    LCD.WriteLine("INSTRUCTIONS");
-    LCD.WriteLine("Your job is to avoid the asteroid debris.");
-    LCD.WriteLine("Tap anywhere to fire the rocket's");
-    LCD.WriteLine("thrusters for a short period of time.");
-    LCD.WriteLine("Gain points by escaping the asteroids.");
     LCD.WriteLine("");
-    LCD.WriteLine("Click anywhere to return to the menu");
+    LCD.SetFontColor(LCD.Scarlet);
+    LCD.WriteLine("***********INSTRUCTIONS***********");
+    LCD.SetFontColor(LCD.White);
+    LCD.WriteLine("  Your job is to avoid the asteroid debris.");
+    LCD.WriteLine("  Tap anywhere to fire the rocket's");
+    LCD.WriteLine("  thrusters for a short period of time.");
+    LCD.WriteLine("  Gain points by escaping the asteroids.");
+    LCD.WriteLine("");
+    LCD.WriteLine("  Click anywhere to return to the menu");
 
     // Wait for user to click screen
     LCD.ClearBuffer();
@@ -110,6 +120,9 @@ void Game::showInstructions() {
     showMenuScreen();
 }
 
+/**
+ * Shows credits
+ */
 void Game::showCredits() {
     LCD.Clear();
 
@@ -127,4 +140,26 @@ void Game::showCredits() {
     while(!LCD.Touch(&x, &y));
     while(LCD.Touch(&x, &y));
     showMenuScreen();
+}
+
+/**
+ * Player class
+ */
+bool Player::draw() {
+    bool onScreen = true;
+
+    // Adjust position to center of player
+    int newVerticalPosition = round(verticalPosition + height / 2);
+    int newHorizontalPosition = round(horizontalPosition + width / 2);
+
+    // Draw player (rectangle for now)
+    LCD.SetDrawColor(LCD.Scarlet);
+    LCD.FillRectangle(newHorizontalPosition, newVerticalPosition, width, height);
+
+    // Check if player is offscreen
+    if ((verticalPosition + height / 2) < 0 || (verticalPosition - height / 2) > 240) {
+        onScreen = false;
+    }
+    
+    return onScreen;
 }

@@ -29,6 +29,8 @@ private:
     double horizontalPosition;
     double verticalPosition;
     double verticalVelocity;
+    double width;
+    double height;
     bool isDead;
 public:
     Player();
