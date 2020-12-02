@@ -137,7 +137,7 @@ bool Player::draw() {
     bool onScreen = true;
       
     // Adjust position to center of player
-    int newVerticalPosition = round(verticalPosition + height / 2);
+    int newVerticalPosition = round(verticalPosition - height / 2);
     int newHorizontalPosition = round(PLAYER_HORIZONTAL_POSITION - width / 2);
 
     // Draw player (rectangle for now)
