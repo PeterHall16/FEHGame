@@ -64,7 +64,7 @@ void Game::showMenuScreen() {
         }
     }
 }
-
+        
 
 /**
  * Shows instructions.
