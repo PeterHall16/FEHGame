@@ -5,6 +5,8 @@
 #include "DeepSpaceDodge.h"
 #include <cmath>
 
+#include <stdio.h>
+
 struct AsteroidNode {
     Obstacle* thisAsteroid;
     AsteroidNode* nextNode;
@@ -58,7 +60,10 @@ void removeAsteroid(AsteroidNode* node) {
     free(node);
 }
 
-int Game::doGame() {
+void Game::doGame() {
+
+    printf("Running Game\n");
+
     // Create player object
     Player *rocket = new Player();
 
@@ -93,6 +98,7 @@ int Game::doGame() {
             rocket->boost();
             touchCooldownCounter = CLICK_COOLDOWN;
         }
+        LCD.ClearBuffer();
 
         // Update rocket motion and draw the rocket
         rocket->updatePosition();
@@ -131,7 +137,9 @@ int Game::doGame() {
 
     delete rocket;
 
-    return rocket->getHorizontalDistance();
+    lastRunScore = rocket->getHorizontalDistance();
+    calculateHighScores();
+    showStatistics();
 }
 
 void Player::updatePosition() {

@@ -17,20 +17,22 @@
 
 #define CLICK_COOLDOWN 2
 #define TICK_DURATION_MS 200
-#define ASTEROID_PROBABILITY 10
-#define ASTEROID_MINIMUM_SIZE 5
-#define ASTEROID_MAXIMUM_SIZE 15
+#define ASTEROID_PROBABILITY 20
+#define ASTEROID_MINIMUM_SIZE 15
+#define ASTEROID_MAXIMUM_SIZE 35
 
 class Game {
 private:
+    int lastRunScore;
     int numHighScores;
     int highScore[5];
 public:
     void showMenuScreen();
-    void showStatistics(int lastRunScore);
+    void showStatistics();
     void showInstructions();
     void showCredits();
-    int doGame();
+    void calculateHighScores();
+    void doGame();
 };
 
 class Player {
