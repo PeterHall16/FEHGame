@@ -91,7 +91,7 @@ int Game::doGame() {
         int xPos, yPos;
         if (LCD.Touch(&xPos, &yPos) && touchCooldownCounter == 0 && !stop){
             rocket->boost();
-            touchCooldownCounter = 5;
+            touchCooldownCounter = CLICK_COOLDOWN;
         }
 
         // Update rocket motion and draw the rocket
@@ -145,7 +145,7 @@ void Player::updatePosition() {
     verticalVelocity -= PLAYER_VERTICAL_GRAVITATIONAL_ACCELERATION;
     
     // Change position by verticalVelocity's pixels/tick
-    verticalPosition += verticalVelocity;
+    verticalPosition -= verticalVelocity;
 }
 
 Obstacle::Obstacle(int playerHorizontalPosition) {
