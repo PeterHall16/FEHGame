@@ -7,6 +7,11 @@
 #define PLAYER_HORIZONTAL_VELOCITY 2.0      // Velocity in pixels/tick
 #define PLAYER_VERTICAL_ACCELERATION 2.0    // Acceleration in pixels/tick^2
 
+#define PLAYER_STARTING_VERTICAL_POSITION 120
+
+#define PLAYER_WIDTH 30
+#define PLAYER_HEIGHT 20
+
 #define TICK_DURATION_MS 20
 #define ASTEROID_PROBABILITY 10
 #define ASTEROID_MINIMUM_SIZE 5
@@ -29,11 +34,11 @@ private:
     double horizontalPosition;
     double verticalPosition;
     double verticalVelocity;
-    double width;
-    double height;
+    int width;
+    int height;
     bool isDead;
 public:
-    Player();
+    Player(double horizontalPosition, double verticalPosition, double verticalVelocity, int width, int height, bool isDead);
     void boost();
     int getHorizontalDistance();
     int getHeight();

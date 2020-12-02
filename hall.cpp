@@ -142,15 +142,30 @@ void Game::showCredits() {
     showMenuScreen();
 }
 
+/***************************************************************/
+
 /**
- * Player class
+ * Player constructor. Initialize to passed values
+ */
+Player::Player(double a, double b, double c, int d, int e, bool f) {
+    horizontalPosition = a;
+    verticalPosition = b;
+    verticalVelocity = c;
+    width = d;
+    height = e;
+    isDead = f;
+}
+
+
+/**
+ * Draws player
  */
 bool Player::draw() {
     bool onScreen = true;
 
     // Adjust position to center of player
     int newVerticalPosition = round(verticalPosition + height / 2);
-    int newHorizontalPosition = round(horizontalPosition + width / 2);
+    int newHorizontalPosition = round(160 + width / 2);
 
     // Draw player (rectangle for now)
     LCD.SetDrawColor(LCD.Scarlet);
@@ -162,4 +177,11 @@ bool Player::draw() {
     }
     
     return onScreen;
+}
+
+/**
+ * Increases the verticalVelocity variable for each jump
+ */
+void Player::boost() {
+    verticalVelocity + PLAYER_VERTICAL_ACCELERATION;
 }
