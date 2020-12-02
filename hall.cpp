@@ -182,5 +182,5 @@ bool Player::draw() {
  * Increases the verticalVelocity variable for each jump
  */
 void Player::boost() {
-    verticalVelocity + PLAYER_VERTICAL_JUMP_ACCELERATION;
+    verticalVelocity += PLAYER_VERTICAL_JUMP_ACCELERATION;
 }
