@@ -5,9 +5,11 @@
 #define SCREEN_HEIGHT 240
 
 #define PLAYER_HORIZONTAL_VELOCITY 2.0      // Velocity in pixels/tick
+#define PLAYER_STARTING_VERTICAL_VELOCITY 0.0
 #define PLAYER_VERTICAL_ACCELERATION 2.0    // Acceleration in pixels/tick^2
 
 #define PLAYER_STARTING_VERTICAL_POSITION 120
+#define PLAYER_STARTING_HORIZONTAL_POSITION 120
 
 #define PLAYER_WIDTH 30
 #define PLAYER_HEIGHT 20
@@ -38,7 +40,8 @@ private:
     int height;
     bool isDead;
 public:
-    Player(double horizontalPosition, double verticalPosition, double verticalVelocity, int width, int height, bool isDead);
+    Player(double = PLAYER_STARTING_HORIZONTAL_POSITION, double = PLAYER_STARTING_VERTICAL_POSITION, 
+    double = PLAYER_STARTING_VERTICAL_VELOCITY, int = PLAYER_WIDTH, int = PLAYER_HEIGHT, bool = false);
     void boost();
     int getHorizontalDistance();
     int getHeight();
