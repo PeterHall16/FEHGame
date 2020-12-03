@@ -60,6 +60,16 @@ void removeAsteroid(AsteroidNode* node) {
     free(node);
 }
 
+void clearAsteroids() {
+    AsteroidNode* node = asteroidHead;
+    AsteroidNode* nextNode = NULL;
+    while (node != NULL) {
+        nextNode = node->nextNode;
+        removeAsteroid(node);
+        node = nextNode;
+    }
+}
+
 void Game::doGame() {
 
     // Create player object
@@ -135,6 +145,7 @@ void Game::doGame() {
 
     LCD.Clear();
 
+    clearAsteroids();
     delete rocket;
 
     lastRunScore = rocket->getHorizontalDistance();
