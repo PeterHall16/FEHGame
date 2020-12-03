@@ -8,6 +8,7 @@
  */
 int main() {
     Game *game = new Game();
+    game->loadHighScores();
     game->showMenuScreen();
     delete game;
 
