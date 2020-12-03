@@ -82,7 +82,7 @@ bool Obstacle::draw(int playerHorizontalPosition){
         }
 
         //draw the obstacle in the set position based on the horizontal position of the player
-        LCD.FillCircle(x_position,verticalPosition,radius);
+        LCD.DrawCircle(x_position,verticalPosition,radius);
         return true;
     }
 }
