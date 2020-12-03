@@ -169,6 +169,10 @@ Obstacle::Obstacle(int playerHorizontalPosition) {
 
     // Generate random vertical position
     verticalPosition = (RandInt() % (SCREEN_HEIGHT - radius * 2)) + radius;
+
+    // Set variables to known values
+    collisionOccurred = false;
+    explosionCompleted = false;
 }
 
 bool Obstacle::hasCollided(int playerHorizontalPosition, int playerVerticalPosition) {
