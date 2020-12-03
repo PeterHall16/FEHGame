@@ -4,11 +4,11 @@
 
 void Game::showStatistics(){
 
-    //Clear Screen
-    LCD.Clear();
-
     //Declare variables
     int x, y;
+
+    //Clear Screen
+    LCD.Clear();
 
     //Write text
     LCD.WriteLine("High Score Leaderboard");
@@ -47,7 +47,8 @@ int Player::getHeight(){
 }
 
 void Player::setDead(){
-
+    //Set player velocity to zero
+    verticalVelocity=0;
     //Set the dead condition of the player to true
     isDead=true;
 }
@@ -58,10 +59,12 @@ bool Obstacle::draw(int playerHorizontalPosition){
     int x_position=playerHorizontalPosition-horizontalPosition+PLAYER_HORIZONTAL_POSITION;
 
     //if the obstacle is off of the screen return false, if it is on the screen, return true;
-    if(x_position-radius<0){
+    if(x_position+radius>SCREEN_WIDTH){
         return false;
     }
     else{
+        //Set color of obstacles to gray
+        LCD.SetDrawColor(GRAY);
         //draw the obstacle in the set position based on the horizontal position of the player
         LCD.FillCircle(x_position,verticalPosition,radius);
         return true;
@@ -69,5 +72,14 @@ bool Obstacle::draw(int playerHorizontalPosition){
 }
 
 void Game::calculateHighScores() {
-
+    //Check to see if the last run score is a high score and place it in the correct spot if it is
+    for(int i =0; i<5; i++){
+        if(lastRunScore>highScore[i]){
+            for(int j=4; j>i; j--){
+                highScore[j]=highScore[j-1];
+            }
+            highScore[i]=lastRunScore;
+            break;
+        }
+    }
 }

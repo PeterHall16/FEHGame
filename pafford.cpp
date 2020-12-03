@@ -122,7 +122,7 @@ void Game::doGame() {
             }
 
             // If the rocket has collided with an asteroid and the player is still alive, kill the player and begin the death sequence
-            if (node->thisAsteroid->hasCollided(rocketHorizontalPosition, rocketVerticalPosition) && !stop) {
+            if (!stop && node->thisAsteroid->hasCollided(rocketHorizontalPosition, rocketVerticalPosition)) {
                 stop = true;
                 rocket->setDead();
             }
