@@ -147,10 +147,14 @@ void Player::updatePosition() {
     if (!isDead) {
         // Change position by the defined pixels/tick
         horizontalPosition += PLAYER_HORIZONTAL_VELOCITY;
-    }
 
-    // Decrease vertical velocity by given pixels/tick^2
-    verticalVelocity -= PLAYER_VERTICAL_GRAVITATIONAL_ACCELERATION;
+        // Decrease vertical velocity by given pixels/tick^2
+        verticalVelocity -= PLAYER_VERTICAL_GRAVITATIONAL_ACCELERATION;
+    }
+    else {
+        // If the player is dead, increase the drop speed
+        verticalVelocity -= PLAYER_VERTICAL_DEATH_ACCELERATION;
+    }
     
     // Change position by verticalVelocity's pixels/tick
     verticalPosition -= verticalVelocity;
@@ -170,11 +174,12 @@ Obstacle::Obstacle(int playerHorizontalPosition) {
 bool Obstacle::hasCollided(int playerHorizontalPosition, int playerVerticalPosition) {
     // Calclate the corners of the player
     double playerCorners[4][2] = {{playerHorizontalPosition + (PLAYER_WIDTH/2.0), playerVerticalPosition + (PLAYER_HEIGHT/2.0)}, {playerHorizontalPosition - (PLAYER_WIDTH/2.0), playerVerticalPosition + (PLAYER_HEIGHT/2.0)},
-                               {playerHorizontalPosition + (PLAYER_WIDTH/2.0), playerVerticalPosition - (PLAYER_HEIGHT/2.0)}, {playerHorizontalPosition - (PLAYER_WIDTH/2.0), playerVerticalPosition - (PLAYER_HEIGHT/2.0)}};
+                                  {playerHorizontalPosition + (PLAYER_WIDTH/2.0), playerVerticalPosition - (PLAYER_HEIGHT/2.0)}, {playerHorizontalPosition - (PLAYER_WIDTH/2.0), playerVerticalPosition - (PLAYER_HEIGHT/2.0)}};
     
     // Check if any corner is within the radius of the asteroid
     for (int corner = 0; corner < 4; corner++) {
         if ((pow(round(playerCorners[corner][0]) - horizontalPosition, 2) + pow(round(playerCorners[corner][1]) - verticalPosition, 2)) < pow(radius, 2)) {
+            collisionOccurred = true;
             return true;
         }
     }

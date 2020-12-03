@@ -4,10 +4,14 @@
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
 
-#define PLAYER_HORIZONTAL_VELOCITY 10.0      // Velocity in pixels/tick
+// Velocity in pixels/tick
+#define PLAYER_HORIZONTAL_VELOCITY 10.0
 #define PLAYER_STARTING_VERTICAL_VELOCITY 0.0
-#define PLAYER_VERTICAL_JUMP_ACCELERATION 12
-#define PLAYER_VERTICAL_GRAVITATIONAL_ACCELERATION 2.0    // Acceleration in pixels/tick^2
+
+// Acceleration in pixels/tick^2
+#define PLAYER_VERTICAL_JUMP_ACCELERATION 12.0
+#define PLAYER_VERTICAL_GRAVITATIONAL_ACCELERATION 2.0
+#define PLAYER_VERTICAL_DEATH_ACCELERATION 5.0
 
 #define PLAYER_STARTING_VERTICAL_POSITION 120
 #define PLAYER_HORIZONTAL_POSITION 160
@@ -59,6 +63,8 @@ private:
     int horizontalPosition;
     int verticalPosition;
     int radius;
+    bool collisionOccurred;
+    bool explosionCompleted;
 public:
     Obstacle(int playerHorizontalPosition);
     bool draw(int playerHorizontalPosition);
