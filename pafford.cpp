@@ -146,9 +146,10 @@ void Game::doGame() {
     LCD.Clear();
 
     clearAsteroids();
-    delete rocket;
 
     lastRunScore = rocket->getHorizontalDistance();
+    
+    delete rocket;
     calculateHighScores();
     showStatistics();
 }
