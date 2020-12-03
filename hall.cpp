@@ -5,6 +5,7 @@
 /***********************************************/
 
 #include "FEHLCD.h"
+#include "LCDColors.h"
 #include "DeepSpaceDodge.h"
 #include <math.h>
 
@@ -135,17 +136,19 @@ Player::Player(double a, double b, double c, int d, int e, bool f) {
  */
 bool Player::draw() {
     bool onScreen = true;
-      
+
     // Adjust position to center of player
     int newVerticalPosition = round(verticalPosition - height / 2);
     int newHorizontalPosition = round(PLAYER_HORIZONTAL_POSITION - width / 2);
 
     // Draw player (rectangle for now)
+    LCD.SetDrawColor(GRAY);
     LCD.FillRectangle(newHorizontalPosition, newVerticalPosition, width, height);
 
     // Check if player is offscreen
     if ((verticalPosition + height / 2) < 0 || (verticalPosition - height / 2) > 240) {
         onScreen = false;
+        LCD.Clear();
     }
     
     return onScreen;
