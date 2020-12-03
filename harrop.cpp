@@ -91,4 +91,14 @@ bool Obstacle::draw(int playerHorizontalPosition){
 
 void Game::calculateHighScores() {
 
+    //Check to see if the last run score is a high score and place it in the correct spot if it is
+    for(int i =0; i<5; i++){
+        if(lastRunScore>highScore[i]){
+            for(int j=4; j>i; j--){
+                highScore[j]=highScore[j-1];
+            }
+            highScore[i]=lastRunScore;
+            break;
+        }
+    }
 }
