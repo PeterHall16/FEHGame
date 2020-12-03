@@ -141,18 +141,18 @@ bool Player::draw() {
     int newVerticalPosition = round(verticalPosition - height / 2);
     int newHorizontalPosition = round(PLAYER_HORIZONTAL_POSITION - width / 2);
 
-    // Draw player (rectangle for now)
-    if (onScreen) {
-        LCD.SetDrawColor(RED);
-        LCD.FillRectangle(newHorizontalPosition, newVerticalPosition, width, height);
-    }
-
     // Check if player is offscreen
     if (verticalPosition < height / 2 || verticalPosition > 240 - height / 2) {
         onScreen = false;
         LCD.Clear();
     }
     
+    // Draw player (rectangle for now)
+    if (onScreen) {
+        LCD.SetDrawColor(RED);
+        LCD.FillRectangle(newHorizontalPosition, newVerticalPosition, width, height);
+    }
+
     return onScreen;
 }
 
