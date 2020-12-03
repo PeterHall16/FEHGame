@@ -125,10 +125,6 @@ void Game::doGame() {
             if (!stop && node->thisAsteroid->hasCollided(rocketHorizontalPosition, rocketVerticalPosition)) {
                 stop = true;
                 rocket->setDead();
-                AsteroidNode* nextNode = node->nextNode;
-                removeAsteroid(node);
-                node = nextNode;
-                continue;
             }
 
             node = node->nextNode;
@@ -183,6 +179,7 @@ bool Obstacle::hasCollided(int playerHorizontalPosition, int playerVerticalPosit
     // Check if any corner is within the radius of the asteroid
     for (int corner = 0; corner < 4; corner++) {
         if ((pow(round(playerCorners[corner][0]) - horizontalPosition, 2) + pow(round(playerCorners[corner][1]) - verticalPosition, 2)) < pow(radius, 2)) {
+            collisionOccurred = true;
             return true;
         }
     }

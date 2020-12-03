@@ -63,6 +63,8 @@ private:
     int horizontalPosition;
     int verticalPosition;
     int radius;
+    bool collisionOccurred;
+    bool explosionCompleted;
 public:
     Obstacle(int playerHorizontalPosition);
     bool draw(int playerHorizontalPosition);
