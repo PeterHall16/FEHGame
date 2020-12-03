@@ -103,8 +103,8 @@ void Game::doGame() {
         if (LCD.Touch(&xPos, &yPos) && touchCooldownCounter == 0 && !stop){
             rocket->boost();
             touchCooldownCounter = CLICK_COOLDOWN;
+            LCD.ClearBuffer();
         }
-        LCD.ClearBuffer();
 
         // Update rocket motion and draw the rocket
         rocket->updatePosition();
