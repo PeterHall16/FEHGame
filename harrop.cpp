@@ -47,6 +47,7 @@ int Player::getHeight(){
 }
 
 void Player::setDead(){
+
     //Set player velocity to zero
     verticalVelocity=0;
     //Set the dead condition of the player to true
@@ -59,12 +60,27 @@ bool Obstacle::draw(int playerHorizontalPosition){
     int x_position=playerHorizontalPosition-horizontalPosition+PLAYER_HORIZONTAL_POSITION;
 
     //if the obstacle is off of the screen return false, if it is on the screen, return true;
-    if(x_position+radius>SCREEN_WIDTH){
+    if(x_position-radius>SCREEN_WIDTH){
         return false;
     }
     else{
-        //Set color of obstacles to gray
-        LCD.SetDrawColor(GRAY);
+        if(collisionOccurred && !explosionCompleted){
+
+            //Change the color of the obstacle to when colliding with the player
+            LCD.SetDrawColor(YELLOW);
+            explosionCompleted=true;
+        }
+        else if(explosionCompleted){
+
+            //Set the obstacle to delete itself
+            return false;
+        }
+        else{
+
+            //Set color of obstacles to gray
+            LCD.SetDrawColor(GRAY);
+        }
+
         //draw the obstacle in the set position based on the horizontal position of the player
         LCD.FillCircle(x_position,verticalPosition,radius);
         return true;
