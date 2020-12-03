@@ -150,7 +150,7 @@ bool Player::draw() {
     // Draw player (rectangle for now)
     if (onScreen) {
         LCD.SetDrawColor(RED);
-        LCD.FillRectangle(newHorizontalPosition, newVerticalPosition, width, height);
+        LCD.DrawRectangle(newHorizontalPosition, newVerticalPosition, width, height);
     }
 
     return onScreen;
@@ -162,3 +162,4 @@ bool Player::draw() {
 void Player::boost() {
     verticalVelocity += PLAYER_VERTICAL_JUMP_ACCELERATION;
 }
+      
