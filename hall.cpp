@@ -142,11 +142,13 @@ bool Player::draw() {
     int newHorizontalPosition = round(PLAYER_HORIZONTAL_POSITION - width / 2);
 
     // Draw player (rectangle for now)
-    LCD.SetDrawColor(RED);
-    LCD.FillRectangle(newHorizontalPosition, newVerticalPosition, width, height);
+    if (onScreen) {
+        LCD.SetDrawColor(RED);
+        LCD.FillRectangle(newHorizontalPosition, newVerticalPosition, width, height);
+    }
 
     // Check if player is offscreen
-    if ((verticalPosition + height / 2) < 0 || (verticalPosition - height / 2) > 240) {
+    if (verticalPosition < height / 2 || verticalPosition > 240 - height / 2) {
         onScreen = false;
         LCD.Clear();
     }
@@ -155,7 +157,7 @@ bool Player::draw() {
 }
 
 /**
- * Increases the verticalVelocity variable for each jump
+ * Increases the verticalVelocity variable for each jump                
  */
 void Player::boost() {
     verticalVelocity += PLAYER_VERTICAL_JUMP_ACCELERATION;
