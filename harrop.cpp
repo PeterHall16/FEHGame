@@ -58,7 +58,7 @@ bool Obstacle::draw(int playerHorizontalPosition){
     int x_position=playerHorizontalPosition-horizontalPosition+PLAYER_HORIZONTAL_POSITION;
 
     //if the obstacle is off of the screen return false, if it is on the screen, return true;
-    if(x_position-radius<0){
+    if(x_position+radius<0){
         return false;
     }
     else{
