@@ -37,6 +37,8 @@ public:
     void showCredits();
     void calculateHighScores();
     void doGame();
+    void loadHighScores();
+    void saveHighScores();
 };
 
 class Player {
