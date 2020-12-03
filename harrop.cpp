@@ -17,7 +17,7 @@ void Game::showStatistics(){
     //display top 5 scores from all runs
     for(int i=0; i<5; i++){            
         LCD.Write(i+1);
-        LCD.Write(" - ");
+        LCD.Write(" : ");
         LCD.WriteLine(highScore[i]);
     }
     //display latest run score
@@ -68,6 +68,8 @@ bool Obstacle::draw(int playerHorizontalPosition){
 
             //Change the color of the obstacle to when colliding with the player
             LCD.SetDrawColor(YELLOW);
+
+            //Make the object delete itslef next time it is drawn
             explosionCompleted=true;
         }
         else if(explosionCompleted){
