@@ -104,6 +104,9 @@ void Game::calculateHighScores() {
             break;
         }
     }
+
+    //Call saveHighScores() function to save the high scores to the text file
+    saveHighScores();
 }
 
 void Game::loadHighScores(){
