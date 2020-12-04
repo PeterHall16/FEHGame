@@ -149,7 +149,11 @@ bool Player::draw() {
     // Draw player (rectangle for now)
     if (onScreen) {
         LCD.SetDrawColor(RED);
-        LCD.DrawRectangle(newHorizontalPosition, newVerticalPosition, width, height);
+        LCD.DrawLine(newHorizontalPosition, newVerticalPosition + 7, newHorizontalPosition + width / 2, newVerticalPosition);
+        LCD.DrawLine(newHorizontalPosition + width, newVerticalPosition + 7, newHorizontalPosition + width / 2, newVerticalPosition);
+        LCD.DrawRectangle(newHorizontalPosition, newVerticalPosition + 7, width, height - 7);
+
+        
     }
 
     return onScreen;
