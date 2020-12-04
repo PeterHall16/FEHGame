@@ -12,22 +12,31 @@ void Game::showStatistics(){
     int x, y;
 
     //Write statistics menu text
-    LCD.WriteLine("High Score Leaderboard");
-    LCD.WriteLine("Furthest Distances:");
+    LCD.SetFontColor(SCARLET);
+    LCD.WriteAt("*******High Score Leaderboard*******",2,5);
+    LCD.SetFontColor(WHITE);
+    LCD.WriteAt("Rank",75,30);
+    LCD.WriteAt("Score",204,30);
+    LCD.SetDrawColor(WHITE);
+    LCD.DrawHorizontalLine(46,72,115);
+    LCD.DrawHorizontalLine(46,189,262);
 
     //display top 5 scores from all runs
-    for(int i=0; i<5; i++){            
-        LCD.Write(i+1);
-        LCD.Write(" : ");
-        LCD.WriteLine(highScore[i]);
+    for(int i=0; i<5; i++){         
+        LCD.WriteAt(i+1,88,56+25*i);
+        LCD.WriteAt(highScore[i],190,56+25*i);
+        LCD.WriteAt(" PTS",230,56+25*i);
     }
 
     //display latest run score
-    LCD.Write("Last Run Score: ");
-    LCD.WriteLine(lastRunScore);
+    LCD.SetFontColor(SCARLET);
+    LCD.WriteAt("Last Run Score: ",10,188);
+    LCD.WriteAt(lastRunScore,135,188);
+    LCD.WriteAt(" PTS",175,188);
 
     //Wait for user touch to return to main screen
-    LCD.WriteLine("Click anywhere to return to the menu");
+    LCD.SetFontColor(WHITE);
+    LCD.WriteAt("Click anywhere to return to the menu",15,220);
     LCD.ClearBuffer();
     while(!LCD.Touch(&x, &y));
     while(LCD.Touch(&x, &y));
@@ -62,39 +71,38 @@ bool Obstacle::draw(int playerHorizontalPosition){
     //Calculate the x coordinate of the center of the obstacle
     int x_position=playerHorizontalPosition-horizontalPosition+PLAYER_HORIZONTAL_POSITION;
 
-    //if the obstacle is off of the screen return false, if it is on the screen, return true;
+    //if the obstacle is off of the screen, return false. if it is on the screen, return true
     if(x_position+radius>=SCREEN_WIDTH){
         return false;
     }
-    else{
-        if(collisionOccurred && !explosionCompleted){
+    else if(collisionOccurred && !explosionCompleted){
 
-            //Change the color of the obstacle to when colliding with the player
-            LCD.SetDrawColor(YELLOW);
+        //Change the color of the obstacle to yellow when colliding with the player
+        LCD.SetDrawColor(YELLOW);
 
-            //Make the object delete itslef next time it is drawn
-            explosionCompleted=true;
-        }
-        else if(explosionCompleted){
-
-            //Set the obstacle to delete itself
-            return false;
-        }
-        else{
-
-            //Set color of obstacles to gray
-            LCD.SetDrawColor(GRAY);
-        }
-
-        //draw the obstacle in the set position based on the horizontal position of the player
-        LCD.DrawCircle(x_position,verticalPosition,radius);
-        return true;
+        //Make the object delete itself next time it is drawn
+        explosionCompleted=true;
     }
+    else if(explosionCompleted){
+
+        //Set the obstacle to delete itself
+        return false;
+    }
+    else{
+
+        //Set the color of the obstacle to gray
+        LCD.SetDrawColor(GRAY);
+    }
+
+    //draw the obstacle in the set position based on the horizontal position of the player
+    LCD.DrawCircle(x_position,verticalPosition,radius);
+    return true;
 }
 
 void Game::calculateHighScores() {
 
-    //Check to see if the last run score is a high score and place it in the correct spot if it is
+    //check to see if the last run score is a high score and place it in the correct spot if it is 
+    //move the other high scores to account for the new high score 
     for(int i =0; i<5; i++){
         if(lastRunScore>highScore[i]){
             for(int j=4; j>i; j--){
@@ -109,10 +117,10 @@ void Game::calculateHighScores() {
     saveHighScores();
 }
 
-void Game::loadHighScores(){
+void Game::saveHighScores(){
 
     //Open up the high scores text file for reading
-    FEHFile* highScores = SD.FOpen("HighScores.txt","r");
+    FEHFile* highScores = SD.FOpen("HighScores.txt","w");
 
     //Write each high score from the text file into the current game high scores
     for(int i=0; i<5; i++){
@@ -124,10 +132,10 @@ void Game::loadHighScores(){
 
 }
 
-void Game::saveHighScores(){
+void Game::loadHighScores(){
 
     //Open up the high scores text file for writing 
-    FEHFile* highScores = SD.FOpen("HighScores.txt","w");
+    FEHFile* highScores = SD.FOpen("HighScores.txt","r");
 
     //Write in each high score into the text file
     for(int i=0; i<5; i++){
