@@ -5,6 +5,7 @@
 /***********************************************/
 
 #include "FEHLCD.h"
+#include "FEHRandom.h"
 #include "LCDColors.h"
 #include "DeepSpaceDodge.h"
 #include <math.h>
@@ -24,6 +25,14 @@ void Game::showMenuScreen() {
     int charWidth = 8;
     int charHeight = 24;
     bool checkClick = true;
+
+    // Draw stars
+    for(int i = 0; i < 15; i++) {
+        int x = RandInt() % 320;
+        int y = RandInt() % 240;
+        
+        LCD.DrawPixel(x, y);
+    }
 
     // Draw shapes
     LCD.SetDrawColor(LCD.Blue);
