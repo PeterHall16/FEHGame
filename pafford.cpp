@@ -78,11 +78,17 @@ void Game::doGame() {
 
     // Define variables persistent across loops
     bool stop = false;
-    int touchCooldownCounter = 0;
-
+    int xPos, yPos;
+    int touchCooldownCounter = CLICK_COOLDOWN;
     int tickStartMs = 0;
     int forceAsteroidCounter = ASTEROID_INITIAL_SPAWN_DELAY;
     int asteroidSpawnCooldown = ASTEROID_INITIAL_SPAWN_DELAY;
+
+    LCD.Clear();
+    LCD.WriteAt("Tap to Start", SCREEN_WIDTH/2 - 42, SCREEN_HEIGHT/4);
+    rocket->draw();
+    while (!LCD.Touch(&xPos, &yPos)) {}
+    LCD.ClearBuffer();
 
     // Main game loop
     while (true) {
@@ -107,7 +113,6 @@ void Game::doGame() {
         }
 
         // If the player touched the screen, the touch cooldown isn't active, and the player is still alive
-        int xPos, yPos;
         if (LCD.Touch(&xPos, &yPos) && touchCooldownCounter == 0 && !stop){
             rocket->boost();
             touchCooldownCounter = CLICK_COOLDOWN;
