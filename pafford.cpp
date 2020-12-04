@@ -14,6 +14,10 @@ struct AsteroidNode {
 };
 AsteroidNode *asteroidHead;
 
+/*
+ * Adds a new asteroid to the front of the linked list
+ * Programmed by Robert Pafford
+ */
 void insertAsteroid(Obstacle* asteroid) {
     if (asteroid == NULL)
         return;
@@ -33,6 +37,10 @@ void insertAsteroid(Obstacle* asteroid) {
     asteroidHead = node;
 }
 
+/*
+ * Removes a specific asteroid from the linked list
+ * Programmed by Robert Pafford
+ */
 void removeAsteroid(AsteroidNode* node) {
     // Make sure current node isn't null
     if (node == NULL)
@@ -60,6 +68,10 @@ void removeAsteroid(AsteroidNode* node) {
     free(node);
 }
 
+/*
+ * Clears all asteroids from linked list
+ * Programmed by Robert Pafford
+ */
 void clearAsteroids() {
     // Loop through the asteroids deleting each one
     AsteroidNode* node = asteroidHead;
@@ -71,19 +83,23 @@ void clearAsteroids() {
     }
 }
 
+/*
+ * Main game loop, manages the running game
+ * Programmed by Robert Pafford
+ */
 void Game::doGame() {
-
     // Create player object
     Player *rocket = new Player();
 
     // Define variables persistent across loops
-    bool stop = false;
-    int xPos, yPos;
-    int touchCooldownCounter = CLICK_COOLDOWN;
-    int tickStartMs = 0;
-    int forceAsteroidCounter = ASTEROID_INITIAL_SPAWN_DELAY;
-    int asteroidSpawnCooldown = ASTEROID_INITIAL_SPAWN_DELAY;
+    bool stop = false;                                          // Defines when the game loop should enter death animation
+    int xPos, yPos;                                             // x and y position for touch
+    int touchCooldownCounter = CLICK_COOLDOWN;                  // Cooldown until another touch is allowed in ticks
+    int tickStartMs = 0;                                        // Time of tick start, used for timing the game loop
+    int forceAsteroidCounter = ASTEROID_INITIAL_SPAWN_DELAY;    // Time until an asteroid will be forcibly spawned in ticks
+    int asteroidSpawnCooldown = ASTEROID_INITIAL_SPAWN_DELAY;   // Time until an asteroid is allowed to be spawned in ticks
 
+    // Wait for first touch to start the game
     LCD.Clear();
     LCD.WriteAt("Tap to Start", SCREEN_WIDTH/2 - 42, SCREEN_HEIGHT/4);
     rocket->draw();
@@ -92,17 +108,22 @@ void Game::doGame() {
 
     // Main game loop
     while (true) {
+        // Get the time the tick started for timing
         tickStartMs = TimeNow() * 1000;
 
         // Generate a random number to see if a new asteroid should be created
-        // Also checks if it is in the death sequence since no new asteroids should appear then
+        // Also checks if the force asteroid counter has gone off which would require an asteroid to appear
+        // Also checks if it is in the death sequence or there is a spawn cooldown which should not have asteroids spawn
         int randomSpawnChance = RandInt() % ASTEROID_PROBABILITY;
         if (!stop && asteroidSpawnCooldown <= 0 && (randomSpawnChance == 0 || forceAsteroidCounter <= 0)) {
+            // Randomly generate a new time for a force spawn of an asteroid
             forceAsteroidCounter = (RandInt() % (MAX_RAND_FORCE_ASTEROID_TICKS - MIN_RAND_FORCE_ASTEROID_TICKS)) + MIN_RAND_FORCE_ASTEROID_TICKS;
+            // Create the new asteroid
             Obstacle* newAsteroid = new Obstacle(rocket->getHorizontalDistance());
             insertAsteroid(newAsteroid);
             asteroidSpawnCooldown = 0;
         } else {
+            // Decrement the timers if an asteroid wasn't spawned
             forceAsteroidCounter--;
             asteroidSpawnCooldown--;
         }
@@ -114,6 +135,7 @@ void Game::doGame() {
 
         // If the player touched the screen, the touch cooldown isn't active, and the player is still alive
         if (LCD.Touch(&xPos, &yPos) && touchCooldownCounter == 0 && !stop){
+            // Boost the rocket, set the touch cooldown, and clear any remaining touches
             rocket->boost();
             touchCooldownCounter = CLICK_COOLDOWN;
             LCD.ClearBuffer();
@@ -132,6 +154,7 @@ void Game::doGame() {
             break;
         }
 
+        // Iterate through all of the asteroids
         int rocketHorizontalPosition = rocket->getHorizontalDistance();
         int rocketVerticalPosition = rocket->getHeight();
         AsteroidNode* node = asteroidHead;
@@ -153,20 +176,29 @@ void Game::doGame() {
             node = node->nextNode;
         }
 
+        // Wait until the game loop has run for the tick duration
         while (((int)(TimeNow() * 1000)) - tickStartMs < TICK_DURATION_MS) {}
     }
 
+    // Clear screen after death
     LCD.Clear();
 
+    // Remove any remaining asteroids from the link list
     clearAsteroids();
 
+    // Get the score from the distance the player has traveled, then delete the player
     lastRunScore = rocket->getHorizontalDistance();
-    
     delete rocket;
+
+    // Recalculate the high scores with the new score, then show the statistics screen
     calculateHighScores();
     showStatistics();
 }
 
+/*
+ * Updates all of the position and velocity variables of the player, taking into account gravity
+ * Programmed by Robert Pafford
+ */
 void Player::updatePosition() {
     // If the player is not dead, move the player forward
     if (!isDead) {
@@ -185,21 +217,29 @@ void Player::updatePosition() {
     verticalPosition -= verticalVelocity;
 }
 
+/*
+ * Initializes new obstacle object, calculating and randomly generating its position and size
+ * Programmed by Robert Pafford
+ */
 Obstacle::Obstacle(int playerHorizontalPosition) {
-    // Generate Radius
+    // Generate random radius between minimum and maximum size
     radius = (RandInt() % (ASTEROID_MAXIMUM_SIZE - ASTEROID_MINIMUM_SIZE)) + ASTEROID_MINIMUM_SIZE;
 
-    // Calculate horizontal position
+    // Calculate horizontal position at the edge of the screen, based on the player's position
     horizontalPosition = playerHorizontalPosition + PLAYER_HORIZONTAL_POSITION - radius;
 
-    // Generate random vertical position
+    // Generate random vertical position between the edges of the screen
     verticalPosition = (RandInt() % (SCREEN_HEIGHT - radius * 2)) + radius;
 
-    // Set variables to known values
+    // Initialize all other class variables to default values
     collisionOccurred = false;
     explosionCompleted = false;
 }
 
+/*
+ * Checks if the player has collided with this asteroid
+ * Programmed by Robert Pafford
+ */
 bool Obstacle::hasCollided(int playerHorizontalPosition, int playerVerticalPosition) {
     // Calclate the corners of the player
     double playerCorners[4][2] = {{playerHorizontalPosition + (PLAYER_WIDTH/2.0), playerVerticalPosition + (PLAYER_HEIGHT/2.0)}, {playerHorizontalPosition - (PLAYER_WIDTH/2.0), playerVerticalPosition + (PLAYER_HEIGHT/2.0)},
@@ -208,6 +248,7 @@ bool Obstacle::hasCollided(int playerHorizontalPosition, int playerVerticalPosit
     // Check if any corner is within the radius of the asteroid
     for (int corner = 0; corner < 4; corner++) {
         if ((pow(round(playerCorners[corner][0]) - horizontalPosition, 2) + pow(round(playerCorners[corner][1]) - verticalPosition, 2)) < pow(radius, 2)) {
+            // Mark the collision variable to animate asteroid explosion, then return true for a collision
             collisionOccurred = true;
             return true;
         }
