@@ -61,6 +61,7 @@ void removeAsteroid(AsteroidNode* node) {
 }
 
 void clearAsteroids() {
+    // Loop through the asteroids deleting each one
     AsteroidNode* node = asteroidHead;
     AsteroidNode* nextNode = NULL;
     while (node != NULL) {
@@ -80,6 +81,8 @@ void Game::doGame() {
     int touchCooldownCounter = 0;
 
     int tickStartMs = 0;
+    int forceAsteroidCounter = ASTEROID_INITIAL_SPAWN_DELAY;
+    int asteroidSpawnCooldown = ASTEROID_INITIAL_SPAWN_DELAY;
 
     // Main game loop
     while (true) {
@@ -88,9 +91,14 @@ void Game::doGame() {
         // Generate a random number to see if a new asteroid should be created
         // Also checks if it is in the death sequence since no new asteroids should appear then
         int randomSpawnChance = RandInt() % ASTEROID_PROBABILITY;
-        if (randomSpawnChance == 0 && !stop) {
+        if (!stop && asteroidSpawnCooldown <= 0 && (randomSpawnChance == 0 || forceAsteroidCounter <= 0)) {
+            forceAsteroidCounter = (RandInt() % (MAX_RAND_FORCE_ASTEROID_TICKS - MIN_RAND_FORCE_ASTEROID_TICKS)) + MIN_RAND_FORCE_ASTEROID_TICKS;
             Obstacle* newAsteroid = new Obstacle(rocket->getHorizontalDistance());
             insertAsteroid(newAsteroid);
+            asteroidSpawnCooldown = 0;
+        } else {
+            forceAsteroidCounter--;
+            asteroidSpawnCooldown--;
         }
 
         // Decrement touch cooldown if it needs to be decremented
