@@ -1,8 +1,7 @@
 #include "DeepSpaceDodge.h"
 #include "FEHLCD.h"
 #include "cmath"
-#include "fstream"
-using namespace std;
+#include "FEHSD.h"
 
 void Game::showStatistics(){
 
@@ -105,36 +104,37 @@ void Game::calculateHighScores() {
             break;
         }
     }
+
+    //Call saveHighScores() function to save the high scores to the text file
+    saveHighScores();
 }
 
 void Game::loadHighScores(){
 
     //Open up the high scores text file for reading
-    ifstream highScores;
-    highScores.open("HighScores.txt");
+    FEHFile* highScores = SD.FOpen("HighScores.txt","r");
 
-    //Write each high score from the text file to the current game
+    //Write each high score from the text file into the current game high scores
     for(int i=0; i<5; i++){
-        highScores>>highScore[i];
+        SD.FPrintf(highScores,"%d\n",highScore[i]);
     }
 
     //close the text file
-    highScores.close();
+    SD.FClose(highScores);
 
 }
 
 void Game::saveHighScores(){
 
     //Open up the high scores text file for writing 
-    ofstream highScores;
-    highScores.open("HighScores.txt");
+    FEHFile* highScores = SD.FOpen("HighScores.txt","w");
 
     //Write in each high score into the text file
     for(int i=0; i<5; i++){
-        highScores<<highScore[i]<<endl;
+        SD.FScanf(highScores,"%d",&highScore[i]);
     }
 
     //close the text file
-    highScores.close();
+    SD.FClose(highScores);
 
 }
