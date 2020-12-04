@@ -1,16 +1,18 @@
 #include "DeepSpaceDodge.h"
 #include "FEHLCD.h"
 #include "cmath"
+#include "fstream"
+using namespace std;
 
 void Game::showStatistics(){
 
     //Clear Screen
     LCD.Clear();
 
-    //Declare variables
+    //Declare variables for user touch
     int x, y;
 
-    //Write text
+    //Write statistics menu text
     LCD.WriteLine("High Score Leaderboard");
     LCD.WriteLine("Furthest Distances:");
 
@@ -20,6 +22,7 @@ void Game::showStatistics(){
         LCD.Write(" : ");
         LCD.WriteLine(highScore[i]);
     }
+
     //display latest run score
     LCD.Write("Last Run Score: ");
     LCD.WriteLine(lastRunScore);
@@ -50,6 +53,7 @@ void Player::setDead(){
 
     //Set player velocity to zero
     verticalVelocity=0;
+
     //Set the dead condition of the player to true
     isDead=true;
 }
@@ -101,4 +105,36 @@ void Game::calculateHighScores() {
             break;
         }
     }
+}
+
+void Game::loadHighScores(){
+
+    //Open up the high scores text file for reading
+    ifstream highScores;
+    highScores.open("HighScores.txt");
+
+    //Write each high score from the text file to the current game
+    for(int i=0; i<5; i++){
+        highScores>>highScore[i];
+    }
+
+    //close the text file
+    highScores.close();
+
+}
+
+void Game::saveHighScores(){
+
+    //Open up the high scores text file for writing 
+    ofstream highScores;
+    highScores.open("HighScores.txt");
+
+    //Write in each high score into the text file
+    for(int i=0; i<5; i++){
+        highScores<<highScore[i]<<endl;
+    }
+
+    //close the text file
+    highScores.close();
+
 }
