@@ -46,8 +46,8 @@ void Game::showStatistics(){
 int Player::getHorizontalDistance(){
 
     //round and return the horizontal position of the player
-    int roundedVerticalPosition=round(horizontalPosition);
-    return roundedVerticalPosition;
+    int roundedHorizontalPosition=round(horizontalPosition);
+    return roundedHorizontalPosition;
 }
 
 int Player::getHeight(){
@@ -94,7 +94,7 @@ bool Obstacle::draw(int playerHorizontalPosition){
         LCD.SetDrawColor(GRAY);
     }
 
-    //draw the obstacle in the set position based on the horizontal position of the player
+    //draw the obstacle in its new position based on the horizontal position of the player
     LCD.DrawCircle(x_position,verticalPosition,radius);
     return true;
 }
@@ -119,10 +119,10 @@ void Game::calculateHighScores() {
 
 void Game::saveHighScores(){
 
-    //Open up the high scores text file for reading
+    //Open up the high scores text file for writing
     FEHFile* highScores = SD.FOpen("HighScores.txt","w");
 
-    //Write each high score from the text file into the current game high scores
+    //Write each high score from the current game into the text file
     for(int i=0; i<5; i++){
         SD.FPrintf(highScores,"%d\n",highScore[i]);
     }
@@ -134,10 +134,10 @@ void Game::saveHighScores(){
 
 void Game::loadHighScores(){
 
-    //Open up the high scores text file for writing 
+    //Open up the high scores text file for reading 
     FEHFile* highScores = SD.FOpen("HighScores.txt","r");
 
-    //Write in each high score into the text file
+    //Read in each high score from the text file into the current game high scores
     for(int i=0; i<5; i++){
         SD.FScanf(highScores,"%d",&highScore[i]);
     }
