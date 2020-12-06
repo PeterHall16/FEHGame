@@ -26,14 +26,6 @@ void Game::showMenuScreen() {
     int charHeight = 24;
     bool checkClick = true;
 
-    // Draw stars
-    for(int i = 0; i < 15; i++) {
-        int x = RandInt() % 320;
-        int y = RandInt() % 240;
-        
-        LCD.DrawPixel(x, y);
-    }
-
     // Draw shapes
     LCD.SetDrawColor(LCD.Blue);
     LCD.FillRectangle(buttonX, buttonY, width, height);
