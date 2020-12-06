@@ -1,10 +1,8 @@
 #include "DeepSpaceDodge.h"
 
 /**
- * Entry point to the application.
- * Create a new game, load in high scores, then show menu
- * 
- * @returns status code of program exit
+ * Entry into main program, loads high scores then shows the menu
+ * Programmed by Robert Pafford
  */
 int main() {
     Game *game = new Game();
@@ -13,4 +11,4 @@ int main() {
     delete game;
 
     return 0;
-}     
+}
