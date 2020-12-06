@@ -42,8 +42,9 @@ void Game::showStatistics(){
     LCD.SetFontColor(WHITE);
     LCD.WriteAt("Click anywhere to return to the menu",15,220);
     LCD.ClearBuffer();
-    while(!LCD.Touch(&x, &y));
-    while(LCD.Touch(&x, &y));
+    while(!LCD.Touch(&x, &y)){
+
+    }
     showMenuScreen();
 }
 
