@@ -1,8 +1,8 @@
-#include "FEHLCD.h"
 #include "DeepSpaceDodge.h"
 
 /**
  * Entry point to the application.
+ * Create a new game, load in high scores, then show menu
  * 
  * @returns status code of program exit
  */
