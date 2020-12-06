@@ -10,13 +10,15 @@
 #include "DeepSpaceDodge.h"
 #include <math.h>
 
-/**
- * Displays menu screen.
+/*
+ * Displays the menu screen
+ * Programmed by Peter Hall
  */
 void Game::showMenuScreen() {
+    // Clear the menu screen
     LCD.Clear();
 
-    // Define variables
+    // Define variables used for displaying the menu
     int width = 190;
     int height = 35;
     int buttonX = 65;
@@ -24,103 +26,109 @@ void Game::showMenuScreen() {
     int offset = 45;
     int charWidth = 8;
     int charHeight = 24;
-    bool checkClick = true;
 
-    // Draw shapes
+    // Draw menu buttons
     LCD.SetDrawColor(LCD.Blue);
     LCD.FillRectangle(buttonX, buttonY, width, height);
     LCD.FillRectangle(buttonX, buttonY + offset, width, height);
     LCD.FillRectangle(buttonX, buttonY + 2 * offset, width, height);
     LCD.FillRectangle(buttonX, buttonY + 3 * offset, width, height);
 
-    // Write text
+    // Write title and menu labels
     LCD.SetFontColor(LCD.White); 
-    LCD.WriteAt("DEEP SPACE DODGE", 80, 25);
+    LCD.WriteAt("DEEP SPACE DODGE", 83, 25);
     LCD.WriteAt("Play", buttonX + (width - 4 * charWidth) / 2, buttonY + (height - charHeight));
     LCD.WriteAt("View Stats", buttonX + (width - 10 * charWidth) / 2, buttonY + offset + (height - charHeight));
     LCD.WriteAt("View Instructions", buttonX + (width - 17 * charWidth) / 2, buttonY + 2 * offset + (height - charHeight));
     LCD.WriteAt("View Credits", buttonX + (width - 12 * charWidth) / 2, buttonY + 3 * offset + (height - charHeight));
 
     // Check for clicks and call appropiate functions
-    while (checkClick) {
-        // Declare variables
-        int x, y;
+    // Declare variables used for registering a touch
+    int x, y;
 
-        // Wait for user to click screen
-        LCD.ClearBuffer();
-        while(!LCD.Touch(&x, &y));
-        while(LCD.Touch(&x, &y));
+    // Wait for user to click screen
+    LCD.ClearBuffer();
+    while(!LCD.Touch(&x, &y));
+    while(LCD.Touch(&x, &y));
 
-        // Check if x position corresponds to a possible button click first
-        if (x > buttonX && x < (buttonX + width)) {
-            // Check the y position to determine which button was clicked
-            if (y > buttonY && y < buttonY + height) {
-                doGame();
-            } else if (y > buttonY + offset && y < buttonY + offset + height) {
-                showStatistics();
-            } else if (y > buttonY + 2 * offset && y < buttonY + 2 * offset + offset) {
-                showInstructions();
-            } else if (y > buttonY + 3 * offset && y < buttonY + 3 * offset + offset) {
-                showCredits();
-            }
+    // Check if x position corresponds to a possible button click first
+    if (x > buttonX && x < (buttonX + width)) {
+        // Check the y position to determine which button was clicked
+        if (y > buttonY && y < buttonY + height) {
+            doGame(); // Begin gameplay
+        } else if (y > buttonY + offset && y < buttonY + offset + height) {
+            showStatistics(); // Display the statistics screen
+        } else if (y > buttonY + 2 * offset && y < buttonY + 2 * offset + offset) {
+            showInstructions(); // Display the instructions screen
+        } else if (y > buttonY + 3 * offset && y < buttonY + 3 * offset + offset) {
+            showCredits(); // Display the credits screen
         }
     }
 }  
 
-/**
- * Shows instructions.
+/*
+ * Displays the game instructions
+ * Programmed by Peter Hall
  */
 void Game::showInstructions() {
+    // Clear the menu screen
     LCD.Clear();
 
     // Declare variables
     int x, y;
 
     // Write Text
-    LCD.WriteLine("");
-    LCD.SetFontColor(LCD.Scarlet);
-    LCD.WriteLine("***********INSTRUCTIONS***********");
-    LCD.SetFontColor(LCD.White);
-    LCD.WriteLine("  Your job is to avoid the asteroid debris.");
-    LCD.WriteLine("  Tap anywhere to fire the rocket's");
-    LCD.WriteLine("  thrusters for a short period of time.");
-    LCD.WriteLine("  Gain points by escaping the asteroids.");
-    LCD.WriteLine("");
-    LCD.WriteLine("  Click anywhere to return to the menu");
+    LCD.SetFontColor(SCARLET);
+    LCD.WriteAt("***********INSTRUCTIONS***********", 1, 5);
+    LCD.SetFontColor(WHITE);
+    LCD.WriteAt("Your job is to avoid the asteroid debris.", 8, 30);
+    LCD.WriteAt("Tap anywhere to fire the rocket's", 8, 52);
+    LCD.WriteAt("thrusters for a short period of time.", 8, 74);
+    LCD.WriteAt("Gain points by escaping the asteroids.", 8, 96);
+    LCD.WriteAt("Click anywhere to return to the menu",15,220);
 
     // Wait for user to click screen
     LCD.ClearBuffer();
     while(!LCD.Touch(&x, &y));
     while(LCD.Touch(&x, &y));
+
+    // Return to the menu screen
     showMenuScreen();
 }
 
-/**
- * Shows credits
+/*
+ * Displays the game credits
+ * Programmed by Peter Hall
  */
 void Game::showCredits() {
+    // Clear the menu screen
     LCD.Clear();
 
     // Declare variables
     int x, y;
 
     // Write Text
-    LCD.WriteLine("CREDITS");
-    LCD.WriteLine("Robert Pafford");
-    LCD.WriteLine("Angus Harrop");
-    LCD.WriteLine("Peter Hall");
+    LCD.SetFontColor(SCARLET);
+    LCD.WriteAt("**************Credits***************",2,5);
+    LCD.SetFontColor(WHITE);
+    LCD.WriteAt("Robert Pafford", 97, 30);
+    LCD.WriteAt("Peter Hall", 117, 55);
+    LCD.WriteAt("Angus Harrop", 101, 80);
+    LCD.WriteAt("feh.osu.edu/simulator_docs", 50, 130);
+    LCD.WriteAt("Click anywhere to return to the menu",15,220);
 
     // Wait for user to click screen
     LCD.ClearBuffer();
     while(!LCD.Touch(&x, &y));
     while(LCD.Touch(&x, &y));
+
+    // Return to the menu screen
     showMenuScreen();
 }
 
-/***************************************************************/
-
-/**
- * Player constructor. Initialize to passed values
+/*
+ * Initializes the private fields of the Player class
+ * Programmed by Peter Hall
  */
 Player::Player(double a, double b, double c, int d, int e, bool f) {
     horizontalPosition = a;
@@ -131,39 +139,39 @@ Player::Player(double a, double b, double c, int d, int e, bool f) {
     isDead = f;
 }
 
-/**
- * Draws player
+/*
+ * Draws the player at its current location
+ * Programmed by Peter Hall
  */
 bool Player::draw() {
+    // Initialize the player's position as on the screen
     bool onScreen = true;
 
-    // Adjust position to center of player
+    // Connvert the player's position from its center to its upper-left corner
     int newVerticalPosition = round(verticalPosition - height / 2);
     int newHorizontalPosition = round(PLAYER_HORIZONTAL_POSITION - width / 2);
 
     // Check if player is offscreen
     if (verticalPosition < height / 2 || verticalPosition > 240 - height / 2) {
+        // Player is now inactive
         onScreen = false;
         LCD.Clear();
-    }
-    
-    // Draw player (rectangle for now)
-    if (onScreen) {
+    } else {
+        // Player is still active
         LCD.SetDrawColor(RED);
-        LCD.DrawLine(newHorizontalPosition, newVerticalPosition + 7, newHorizontalPosition + width / 2, newVerticalPosition);
-        LCD.DrawLine(newHorizontalPosition + width, newVerticalPosition + 7, newHorizontalPosition + width / 2, newVerticalPosition);
-        LCD.DrawRectangle(newHorizontalPosition, newVerticalPosition + 7, width, height - 7);
-
-        
+        // Draw the player
+        LCD.DrawRectangle(newHorizontalPosition, newVerticalPosition, width, height);
     }
 
     return onScreen;
 }
 
-/**
- * Increases the verticalVelocity variable for each jump                
+/*
+ * Increases the player's vertical velocity
+ * Programmed by Peter Hall
  */
 void Player::boost() {
-    verticalVelocity += PLAYER_VERTICAL_JUMP_ACCELERATION;
+    // Increase the player's vertical velocity, simulating a jump/boost
+    verticalVelocity += PLAYER_VERTICAL_BOOST_ACCELERATION;
 }
       
