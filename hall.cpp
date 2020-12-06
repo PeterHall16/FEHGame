@@ -43,27 +43,30 @@ void Game::showMenuScreen() {
     LCD.WriteAt("View Credits", buttonX + (width - 12 * charWidth) / 2, buttonY + 3 * offset + (height - charHeight));
 
     // Check for clicks and call appropiate functions
-    // Declare variables used for registering a touch
-    int x, y;
+    while (true) {
+        // Declare variables used for registering a touch
+        int x, y;
 
-    // Wait for user to click screen
-    LCD.ClearBuffer();
-    while(!LCD.Touch(&x, &y));
-    while(LCD.Touch(&x, &y));
+        // Wait for user to click screen
+        LCD.ClearBuffer();
+        while(!LCD.Touch(&x, &y));
+        while(LCD.Touch(&x, &y));
 
-    // Check if x position corresponds to a possible button click first
-    if (x > buttonX && x < (buttonX + width)) {
-        // Check the y position to determine which button was clicked
-        if (y > buttonY && y < buttonY + height) {
-            doGame(); // Begin gameplay
-        } else if (y > buttonY + offset && y < buttonY + offset + height) {
-            showStatistics(); // Display the statistics screen
-        } else if (y > buttonY + 2 * offset && y < buttonY + 2 * offset + offset) {
-            showInstructions(); // Display the instructions screen
-        } else if (y > buttonY + 3 * offset && y < buttonY + 3 * offset + offset) {
-            showCredits(); // Display the credits screen
+        // Check if x position corresponds to a possible button click first
+        if (x > buttonX && x < (buttonX + width)) {
+            // Check the y position to determine which button was clicked
+            if (y > buttonY && y < buttonY + height) {
+                doGame(); // Begin gameplay
+            } else if (y > buttonY + offset && y < buttonY + offset + height) {
+                showStatistics(); // Display the statistics screen
+            } else if (y > buttonY + 2 * offset && y < buttonY + 2 * offset + offset) {
+                showInstructions(); // Display the instructions screen
+            } else if (y > buttonY + 3 * offset && y < buttonY + 3 * offset + offset) {
+                showCredits(); // Display the credits screen
+            }
         }
     }
+    
 }  
 
 /*
