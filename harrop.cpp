@@ -3,6 +3,10 @@
 #include "cmath"
 #include "FEHSD.h"
 
+/*
+*Displays statistics menu and the high scores
+*Programmed by Angus Harrop
+*/
 void Game::showStatistics(){
 
     //Clear Screen
@@ -38,11 +42,16 @@ void Game::showStatistics(){
     LCD.SetFontColor(WHITE);
     LCD.WriteAt("Click anywhere to return to the menu",15,220);
     LCD.ClearBuffer();
-    while(!LCD.Touch(&x, &y));
-    while(LCD.Touch(&x, &y));
+    while(!LCD.Touch(&x, &y)){
+
+    }
     showMenuScreen();
 }
 
+/*
+*Returns the horizontal distance of the player object
+*Programmed by Angus Harrop
+*/
 int Player::getHorizontalDistance(){
 
     //round and return the horizontal position of the player
@@ -50,6 +59,10 @@ int Player::getHorizontalDistance(){
     return roundedHorizontalPosition;
 }
 
+/*
+*Returns the height of the player object
+*Programmed by Angus Harrop
+*/
 int Player::getHeight(){
 
     //round and return the vertical position of the player
@@ -57,6 +70,10 @@ int Player::getHeight(){
     return roundedHeight;
 }
 
+/*
+*Sets the player object to start its death process
+*Programmed by Angus Harrop
+*/
 void Player::setDead(){
 
     //Set player velocity to zero
@@ -66,6 +83,10 @@ void Player::setDead(){
     isDead=true;
 }
 
+/*
+*Draws the obstacle object at the specified location with a specified color
+*Programmed by Angus Harrop
+*/
 bool Obstacle::draw(int playerHorizontalPosition){
 
     //Calculate the x coordinate of the center of the obstacle
@@ -99,6 +120,10 @@ bool Obstacle::draw(int playerHorizontalPosition){
     return true;
 }
 
+/*
+*Inserts the last run score into the current high scores if it meets the requirements
+*Programmed by Angus Harrop
+*/
 void Game::calculateHighScores() {
 
     //check to see if the last run score is a high score and place it in the correct spot if it is 
@@ -117,6 +142,10 @@ void Game::calculateHighScores() {
     saveHighScores();
 }
 
+/*
+*Saves the current game high scores into a text file
+*Programmed by Angus Harrop
+*/
 void Game::saveHighScores(){
 
     //Open up the high scores text file for writing
@@ -132,6 +161,10 @@ void Game::saveHighScores(){
 
 }
 
+/*
+*Loads the text file high scores into the current game high scores
+*Programmed by Angus Harrop
+*/
 void Game::loadHighScores(){
 
     //Open up the high scores text file for reading 
